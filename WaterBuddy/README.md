@@ -5,7 +5,7 @@ A little desktop buddy for macOS that reminds you to drink water.
 - Every **2 hours** he walks in from the right edge of the screen (bottom-right corner) and waves with a speech bubble.
 - **I drank 💧** → he jumps for joy, then walks off to the right. Next reminder in 2 hours.
 - **Snooze** → he looks sad, then walks off to the right. He comes back after the snooze time (15 min by default).
-- A 💧 in the menu bar shows the time until the next reminder and how many glasses you've had today, and has settings for the interval, snooze length, sound, pause, and open-at-login.
+- A 💧 in the menu bar shows the time until the next reminder and how many glasses you've had today (resets each day, or use **Reset Today's Count**), and has settings for the interval, snooze length, sound, pause, and open-at-login.
 
 ## Build & run (on your Mac)
 

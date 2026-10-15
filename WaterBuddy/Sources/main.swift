@@ -33,6 +33,10 @@ enum Settings {
         d.set(today, forKey: "countDate")
         d.set(n, forKey: "count")
     }
+    static func resetGlasses() {
+        d.set(today, forKey: "countDate")
+        d.set(0, forKey: "count")
+    }
 }
 
 // MARK: - Sprites
@@ -319,6 +323,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.addItem(.separator())
         menu.addItem(item("Remind Me Now", #selector(remindNow), key: "r"))
         menu.addItem(item("I Drank a Glass", #selector(logGlass), key: "d"))
+        menu.addItem(item("Reset Today's Count", #selector(resetCount)))
         pauseItem = item("Pause Reminders", #selector(togglePause), key: "p")
         menu.addItem(pauseItem)
         menu.addItem(.separator())
@@ -448,6 +453,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         Settings.addGlass()
         scheduleNext(minutes: Settings.intervalMinutes)
     }
+
+    @objc private func resetCount() { Settings.resetGlasses() }
 
     @objc private func togglePause() {
         paused.toggle()
