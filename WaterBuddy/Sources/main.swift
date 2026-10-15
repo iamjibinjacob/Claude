@@ -176,8 +176,8 @@ final class Stage: NSView {
 
 final class Bubble: NSView {
     let label = NSTextField(wrappingLabelWithString: "")
-    let drankButton = NSButton(title: "I drank 💧", target: nil, action: nil)
-    let snoozeButton = NSButton(title: "Snooze", target: nil, action: nil)
+    let drankButton = NSButton(title: "കുടിച്ചു 💧", target: nil, action: nil)
+    let snoozeButton = NSButton(title: "പിന്നീട്", target: nil, action: nil)
     private let tail: CGFloat = 14
 
     override init(frame: NSRect) {
@@ -247,11 +247,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private var restX: CGFloat { size.width - 85 }
 
     private let messages = [
-        "Hey! Time for a glass of water 💧",
-        "Saar, vellam kudikku! 💧",
-        "2 hours gone. Hydrate, my friend!",
-        "One glass of water. Now. 😄",
-        "Water break! Your body will thank you.",
+        "വെള്ളം കുടിക്കാൻ സമയമായി! 💧",
+        "സാറേ, ഒരു ഗ്ലാസ് വെള്ളം കുടിക്ക്! 💧",
+        "രണ്ട് മണിക്കൂർ ആയി. വെള്ളം കുടിച്ചോ? 😄",
+        "ഒരു ഗ്ലാസ് വെള്ളം. ഇപ്പൊ തന്നെ!",
+        "ശരീരത്തിന് വെള്ളം വേണം, മോനേ! 💧",
     ]
 
     func applicationDidFinishLaunching(_ note: Notification) {
@@ -292,7 +292,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         stage = Stage(frame: root.bounds)
         root.addSubview(stage)
 
-        bubble = Bubble(frame: NSRect(x: 8, y: 120, width: 260, height: 120))
+        bubble = Bubble(frame: NSRect(x: 6, y: 120, width: 278, height: 124))
         bubble.drankButton.target = self
         bubble.drankButton.action = #selector(drank)
         bubble.snoozeButton.target = self
@@ -321,22 +321,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.addItem(nextLine)
         menu.addItem(countLine)
         menu.addItem(.separator())
-        menu.addItem(item("Remind Me Now", #selector(remindNow), key: "r"))
-        menu.addItem(item("I Drank a Glass", #selector(logGlass), key: "d"))
-        menu.addItem(item("Reset Today's Count", #selector(resetCount)))
-        pauseItem = item("Pause Reminders", #selector(togglePause), key: "p")
+        menu.addItem(item("ഇപ്പോൾ ഓർമ്മിപ്പിക്കുക", #selector(remindNow), key: "r"))
+        menu.addItem(item("ഒരു ഗ്ലാസ് കുടിച്ചു", #selector(logGlass), key: "d"))
+        menu.addItem(item("ഇന്നത്തെ എണ്ണം പൂജ്യമാക്കുക", #selector(resetCount)))
+        pauseItem = item("ഓർമ്മപ്പെടുത്തൽ നിർത്തുക", #selector(togglePause), key: "p")
         menu.addItem(pauseItem)
         menu.addItem(.separator())
-        menu.addItem(submenu("Remind Every", options: [(30, "30 minutes"), (60, "1 hour"), (90, "1.5 hours"),
-                                                      (120, "2 hours"), (180, "3 hours")],
+        menu.addItem(submenu("ഓർമ്മിപ്പിക്കേണ്ട ഇടവേള", options: [(30, "30 മിനിറ്റ്"), (60, "1 മണിക്കൂർ"), (90, "1.5 മണിക്കൂർ"),
+                                                      (120, "2 മണിക്കൂർ"), (180, "3 മണിക്കൂർ")],
                              current: { Settings.intervalMinutes }, action: #selector(setInterval)))
-        menu.addItem(submenu("Snooze For", options: [(5, "5 minutes"), (10, "10 minutes"), (15, "15 minutes"),
-                                                    (30, "30 minutes"), (60, "1 hour")],
+        menu.addItem(submenu("പിന്നീട് ഓർമ്മിപ്പിക്കാൻ", options: [(5, "5 മിനിറ്റ്"), (10, "10 മിനിറ്റ്"), (15, "15 മിനിറ്റ്"),
+                                                    (30, "30 മിനിറ്റ്"), (60, "1 മണിക്കൂർ")],
                              current: { Settings.snoozeMinutes }, action: #selector(setSnooze)))
-        menu.addItem(item("Sound", #selector(toggleSound)))
-        menu.addItem(item("Open at Login", #selector(toggleLogin)))
+        menu.addItem(item("ശബ്ദം", #selector(toggleSound)))
+        menu.addItem(item("ലോഗിൻ ചെയ്യുമ്പോൾ തുറക്കുക", #selector(toggleLogin)))
         menu.addItem(.separator())
-        menu.addItem(item("Quit WaterBuddy", #selector(NSApplication.terminate(_:)), key: "q"))
+        menu.addItem(item("WaterBuddy അടയ്ക്കുക", #selector(NSApplication.terminate(_:)), key: "q"))
         statusItem.menu = menu
     }
 
@@ -370,16 +370,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             return
         }
         if paused {
-            nextLine.title = "Reminders paused"
+            nextLine.title = "ഓർമ്മപ്പെടുത്തൽ നിർത്തിവച്ചിരിക്കുന്നു"
         } else if isShowing {
-            nextLine.title = "Reminder showing now"
+            nextLine.title = "ഇപ്പോൾ ഓർമ്മിപ്പിക്കുന്നു"
         } else {
             let mins = max(0, Int(ceil(nextDue.timeIntervalSinceNow / 60)))
-            nextLine.title = "Next reminder in " + (mins >= 60 ? "\(mins / 60)h \(mins % 60)m" : "\(mins)m")
+            nextLine.title = "അടുത്ത ഓർമ്മപ്പെടുത്തൽ: " + (mins >= 60 ? "\(mins / 60) മണിക്കൂർ \(mins % 60) മിനിറ്റ്" : "\(mins) മിനിറ്റ്") + " കഴിഞ്ഞ്"
         }
         let n = Settings.glassesToday
-        countLine.title = "Glasses today: \(n) " + String(repeating: "💧", count: min(n, 10))
-        pauseItem.title = paused ? "Resume Reminders" : "Pause Reminders"
+        countLine.title = "ഇന്ന് കുടിച്ചത്: \(n) ഗ്ലാസ് " + String(repeating: "💧", count: min(n, 10))
+        pauseItem.title = paused ? "ഓർമ്മപ്പെടുത്തൽ തുടരുക" : "ഓർമ്മപ്പെടുത്തൽ നിർത്തുക"
         for i in menu.items {
             if i.action == #selector(toggleSound) { i.state = Settings.soundOn ? .on : .off }
             if i.action == #selector(toggleLogin) { i.state = SMAppService.mainApp.status == .enabled ? .on : .off }
@@ -404,7 +404,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         placePanel()
         bubble.isHidden = true
         bubble.label.stringValue = messages.randomElement()!
-        bubble.snoozeButton.title = "Snooze \(Settings.snoozeMinutes)m"
+        bubble.snoozeButton.title = "പിന്നീട് (\(Settings.snoozeMinutes) മി.)"
         stage.centerX = size.width + 80
         panel.orderFrontRegardless()
         if Settings.soundOn { NSSound(named: "Glass")?.play() }
@@ -479,8 +479,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
         } catch {
             let alert = NSAlert()
-            alert.messageText = "Couldn't change Open at Login"
-            alert.informativeText = "\(error.localizedDescription)\n\nMove WaterBuddy.app to /Applications and try again."
+            alert.messageText = "ലോഗിൻ ക്രമീകരണം മാറ്റാൻ കഴിഞ്ഞില്ല"
+            alert.informativeText = "\(error.localizedDescription)\n\nWaterBuddy.app, Applications ഫോൾഡറിലേക്ക് മാറ്റി വീണ്ടും ശ്രമിക്കുക."
             alert.runModal()
         }
     }

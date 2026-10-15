@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ml">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,7 +48,7 @@
   html, body { margin: 0; height: 100%; }
   body {
     background: #111;
-    font: 13px/1.35 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    font: 13px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Malayalam Sangam MN", "Noto Sans Malayalam", "Segoe UI", Roboto, sans-serif;
     overflow: hidden;
   }
   .desktop {
@@ -78,7 +78,7 @@
   .drop[aria-expanded="true"] { background: rgba(127,127,127,0.3); }
 
   .menu {
-    position: absolute; top: 28px; right: 90px; width: 250px; padding: 5px;
+    position: absolute; top: 28px; right: 90px; width: 330px; padding: 5px;
     background: var(--menu-bg); color: var(--menu-text); border-radius: 9px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.35), 0 0 0 0.5px rgba(0,0,0,0.25);
     z-index: 30; display: none;
@@ -127,7 +127,7 @@
     position: absolute; bottom: 4px; image-rendering: auto; pointer-events: none;
   }
   .bubble {
-    position: absolute; left: 8px; bottom: 140px; width: 246px; height: 116px;
+    position: absolute; left: 6px; bottom: 128px; width: 262px; height: 124px;
     background: #fff; color: #000; border-radius: 16px; padding: 12px 12px 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.35);
     display: flex; flex-direction: column; justify-content: space-between;
@@ -180,35 +180,35 @@
     <div class="info" id="mNext"></div>
     <div class="info" id="mCount"></div>
     <hr>
-    <button data-act="now">Remind Me Now <kbd>⌘R</kbd></button>
-    <button data-act="glass">I Drank a Glass <kbd>⌘D</kbd></button>
-    <button data-act="reset">Reset Today's Count</button>
-    <button data-act="pause" id="mPause">Pause Reminders <kbd>⌘P</kbd></button>
+    <button data-act="now">ഇപ്പോൾ ഓർമ്മിപ്പിക്കുക <kbd>⌘R</kbd></button>
+    <button data-act="glass">ഒരു ഗ്ലാസ് കുടിച്ചു <kbd>⌘D</kbd></button>
+    <button data-act="reset">ഇന്നത്തെ എണ്ണം പൂജ്യമാക്കുക</button>
+    <button data-act="pause" id="mPause">ഓർമ്മപ്പെടുത്തൽ നിർത്തുക <kbd>⌘P</kbd></button>
     <hr>
-    <div class="row">Remind Every
+    <div class="row">ഇടവേള
       <select id="selInterval">
-        <option value="30">30 min</option><option value="60">1 hour</option><option value="90">1.5 hours</option>
-        <option value="120" selected>2 hours</option><option value="180">3 hours</option>
+        <option value="30">30 മിനിറ്റ്</option><option value="60">1 മണിക്കൂർ</option><option value="90">1.5 മണിക്കൂർ</option>
+        <option value="120" selected>2 മണിക്കൂർ</option><option value="180">3 മണിക്കൂർ</option>
       </select>
     </div>
-    <div class="row">Snooze For
+    <div class="row">പിന്നീട്
       <select id="selSnooze">
-        <option value="5">5 min</option><option value="10">10 min</option><option value="15" selected>15 min</option>
-        <option value="30">30 min</option><option value="60">1 hour</option>
+        <option value="5">5 മിനിറ്റ്</option><option value="10">10 മിനിറ്റ്</option><option value="15" selected>15 മിനിറ്റ്</option>
+        <option value="30">30 മിനിറ്റ്</option><option value="60">1 മണിക്കൂർ</option>
       </select>
     </div>
     <hr>
-    <button data-act="close">Quit WaterBuddy <kbd>⌘Q</kbd></button>
+    <button data-act="close">WaterBuddy അടയ്ക്കുക <kbd>⌘Q</kbd></button>
   </div>
 
   <div class="demo">
     <h1>WaterBuddy preview</h1>
-    <p>A browser preview of the Mac app. He shows up in the bottom-right corner. Snooze or drink, and he walks off to the right.</p>
+    <p>Mac ആപ്പിന്റെ ബ്രൗസർ പ്രിവ്യൂ. താഴെ വലത് മൂലയിൽ വരും. "കുടിച്ചു" അല്ലെങ്കിൽ "പിന്നീട്" അമർത്തിയാൽ വലത്തോട്ട് നടന്നുപോകും.</p>
     <div class="btns">
-      <button id="btnNow">Show reminder now</button>
-      <button class="secondary" id="btnTheme">Light / dark</button>
+      <button id="btnNow">ഇപ്പോൾ ഓർമ്മിപ്പിക്കുക</button>
+      <button class="secondary" id="btnTheme">ലൈറ്റ് / ഡാർക്ക്</button>
     </div>
-    <label><input type="checkbox" id="fast" checked> Demo speed (1 minute = 1 second)</label>
+    <label><input type="checkbox" id="fast" checked> ഡെമോ വേഗം (1 മിനിറ്റ് = 1 സെക്കൻഡ്)</label>
     <div class="countdown" id="countdown"></div>
   </div>
 
@@ -217,8 +217,8 @@
     <div class="bubble" id="bubble" role="dialog" aria-label="Water reminder">
       <div class="msg" id="msg"></div>
       <div class="actions">
-        <button class="primary" id="btnDrank">I drank 💧</button>
-        <button id="btnSnooze">Snooze</button>
+        <button class="primary" id="btnDrank">കുടിച്ചു 💧</button>
+        <button id="btnSnooze">പിന്നീട്</button>
       </div>
     </div>
   </div>
@@ -238,11 +238,11 @@ const anims = {
 const W = 420;                      // buddy window width, same as the app
 const REST_X = W - 85;
 const MESSAGES = [
-  "Hey! Time for a glass of water 💧",
-  "Saar, vellam kudikku! 💧",
-  "2 hours gone. Hydrate, my friend!",
-  "One glass of water. Now. 😄",
-  "Water break! Your body will thank you.",
+  "വെള്ളം കുടിക്കാൻ സമയമായി! 💧",
+  "സാറേ, ഒരു ഗ്ലാസ് വെള്ളം കുടിക്ക്! 💧",
+  "രണ്ട് മണിക്കൂർ ആയി. വെള്ളം കുടിച്ചോ? 😄",
+  "ഒരു ഗ്ലാസ് വെള്ളം. ഇപ്പൊ തന്നെ!",
+  "ശരീരത്തിന് വെള്ളം വേണം, മോനേ! 💧",
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -321,7 +321,7 @@ function showReminder() {
   state.showing = true;
   bubble.classList.remove("show");
   $("msg").textContent = MESSAGES[Math.floor(Math.random() * MESSAGES.length)];
-  $("btnSnooze").textContent = `Snooze ${state.snooze}m`;
+  $("btnSnooze").textContent = `പിന്നീട് (${state.snooze} മി.)`;
   centerX = W + 80;
   buddy.classList.add("show");
   chime();
@@ -360,21 +360,21 @@ function addGlass() {
 // ---- Clock / countdown ----
 function fmt(ms) {
   const s = Math.max(0, Math.ceil(ms / 1000));
-  if ($("fast").checked) return `${s}s (= ${Math.floor(s / 60) ? Math.floor(s / 60) + "h " : ""}${s % 60}m)`;
-  const m = Math.ceil(s / 60);
-  return m >= 60 ? `${Math.floor(m / 60)}h ${m % 60}m` : `${m}m`;
+  const hm = (m) => (m >= 60 ? `${Math.floor(m / 60)} മണിക്കൂർ ${m % 60} മിനിറ്റ്` : `${m} മിനിറ്റ്`);
+  if ($("fast").checked) return `${s} സെക്കൻഡ് (= ${hm(s)})`;
+  return hm(Math.ceil(s / 60));
 }
 
 function refresh() {
   const left = state.nextDue - Date.now();
   if (!state.paused && !state.showing && left <= 0) showReminder();
-  const line = state.paused ? "Reminders paused"
-    : state.showing ? "Reminder showing now"
-    : "Next reminder in " + fmt(left);
+  const line = state.paused ? "ഓർമ്മപ്പെടുത്തൽ നിർത്തിവച്ചിരിക്കുന്നു"
+    : state.showing ? "ഇപ്പോൾ ഓർമ്മിപ്പിക്കുന്നു"
+    : "അടുത്ത ഓർമ്മപ്പെടുത്തൽ: " + fmt(left) + " കഴിഞ്ഞ്";
   $("countdown").textContent = line;
   $("mNext").textContent = line;
-  $("mCount").textContent = `Glasses today: ${state.glasses} ` + "💧".repeat(Math.min(state.glasses, 10));
-  $("mPause").firstChild.textContent = state.paused ? "Resume Reminders " : "Pause Reminders ";
+  $("mCount").textContent = `ഇന്ന് കുടിച്ചത്: ${state.glasses} ഗ്ലാസ് ` + "💧".repeat(Math.min(state.glasses, 10));
+  $("mPause").firstChild.textContent = state.paused ? "ഓർമ്മപ്പെടുത്തൽ തുടരുക " : "ഓർമ്മപ്പെടുത്തൽ നിർത്തുക ";
   const d = new Date();
   $("clock").textContent = d.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" }) + "  " +
     d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
